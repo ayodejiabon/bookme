@@ -8,7 +8,7 @@
     "start:prod": "set NODE_ENV=production&& nodemon server.js",
     "debug": "ndb server.js",
     "watch:js": "parcel serve ./public/js/index.js --dist-dir ./public/js/bundle",
-    "build.js": "parcel build ./public/js/index.js --dist-dir ./public/js/bundle"
+    "build:js": "parcel build ./public/js/index.js --dist-dir ./public/js/bundle"
   },
   "author": "Abon Ayodeji",
   "license": "ISC",

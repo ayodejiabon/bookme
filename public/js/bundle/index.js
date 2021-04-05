@@ -493,7 +493,7 @@ if (logoutBtn) {
   logoutBtn.addEventListener('click', _login.logout);
 }
 
-},{"@babel/polyfill":"5fVUu","./login":"2miyN","./mapbox":"3eMMV","./stripe":"YcauW"}],"5fVUu":[function(require,module,exports) {
+},{"@babel/polyfill":"5fVUu","./mapbox":"3eMMV","./login":"2miyN","./stripe":"YcauW"}],"5fVUu":[function(require,module,exports) {
 "use strict";
 
 require("./noConflict");
@@ -7855,6 +7855,87 @@ module.exports = function (it, key) {
   return hasOwnProperty.call(it, key);
 };
 
+},{}],"3eMMV":[function(require,module,exports) {
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "displayMap", function () {
+  return displayMap;
+});
+const displayMap = locations => {
+  mapboxgl.accessToken = 'pk.eyJ1Ijoid2hvaXNhYm9uIiwiYSI6ImNrbXAwMzdoczI5cXQyb2w4ODZxM3UzYjkifQ.3IHdIgc38r-Dr7U5qsWTeg';
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/whoisabon/ckmp24lvx3tem17s22da3708e',
+    // center: [-118.3406, 34.8358],
+    zoom: 7,
+    // interactive: false,
+    scrollZoom: false
+  });
+  const bounds = new mapboxgl.LngLatBounds();
+  locations.forEach(loc => {
+    const el = document.createElement('div');
+    el.className = 'marker';
+    new mapboxgl.Marker({
+      element: el,
+      anchor: 'bottom'
+    }).setLngLat(loc.coordinates).addTo(map);
+    new mapboxgl.Popup({
+      offset: 30
+    }).setLngLat(loc.coordinates).setHTML(`<p>Day ${loc.day}: ${loc.description}</p>`).addTo(map);
+    bounds.extend(loc.coordinates);
+  });
+  map.fitBounds(bounds, {
+    padding: {
+      top: 200,
+      bottom: 150,
+      left: 100,
+      right: 100
+    }
+  });
+};
+
+},{"@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"5gA8y":[function(require,module,exports) {
+"use strict";
+
+exports.interopDefault = function (a) {
+  return a && a.__esModule ? a : {
+    default: a
+  };
+};
+
+exports.defineInteropFlag = function (a) {
+  Object.defineProperty(a, '__esModule', {
+    value: true
+  });
+};
+
+exports.exportAll = function (source, dest) {
+  Object.keys(source).forEach(function (key) {
+    if (key === 'default' || key === '__esModule') {
+      return;
+    } // Skip duplicate re-exports when they have the same value.
+
+
+    if (key in dest && dest[key] === source[key]) {
+      return;
+    }
+
+    Object.defineProperty(dest, key, {
+      enumerable: true,
+      get: function () {
+        return source[key];
+      }
+    });
+  });
+  return dest;
+};
+
+exports.export = function (dest, destName, get) {
+  Object.defineProperty(dest, destName, {
+    enumerable: true,
+    get: get
+  });
+};
 },{}],"2miyN":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
 _parcelHelpers.defineInteropFlag(exports);
@@ -7877,7 +7958,7 @@ const login = async (email, password) => {
   try {
     const res = await _axiosDefault.default({
       method: 'POST',
-      url: 'http://localhost:3000/api/v1/users/login',
+      url: '/api/v1/users/login',
       data: {
         email,
         password
@@ -7897,7 +7978,7 @@ const logout = async () => {
   try {
     const res = await _axiosDefault.default({
       method: 'GET',
-      url: 'http://localhost:3000/api/v1/users/logout'
+      url: '/api/v1/users/logout'
     });
     // reload from server not browser cache
     if (res.data.status === "success") location.reload(true);
@@ -7910,7 +7991,7 @@ const updateUser = async data => {
   try {
     const res = await _axiosDefault.default({
       method: 'PATCH',
-      url: 'http://localhost:3000/api/v1/users/updateme',
+      url: '/api/v1/users/updateme',
       data
     });
     // reload from server not browser cache
@@ -7929,7 +8010,7 @@ const updatePssword = async (current, password, passwordConfirm) => {
   try {
     const res = await _axiosDefault.default({
       method: 'PATCH',
-      url: 'http://localhost:3000/api/v1/users/updatepassword',
+      url: '/api/v1/users/updatepassword',
       data: {
         current,
         password,
@@ -7949,7 +8030,7 @@ const updatePssword = async (current, password, passwordConfirm) => {
   }
 };
 
-},{"axios":"7rA65","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","./alerts":"1mXdc"}],"7rA65":[function(require,module,exports) {
+},{"axios":"7rA65","./alerts":"1mXdc","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"7rA65":[function(require,module,exports) {
 module.exports = require('./lib/axios');
 },{"./lib/axios":"4qfhW"}],"4qfhW":[function(require,module,exports) {
 'use strict';
@@ -9694,48 +9775,6 @@ module.exports = function isAxiosError(payload) {
   return (typeof payload === 'object') && (payload.isAxiosError === true);
 };
 
-},{}],"5gA8y":[function(require,module,exports) {
-"use strict";
-
-exports.interopDefault = function (a) {
-  return a && a.__esModule ? a : {
-    default: a
-  };
-};
-
-exports.defineInteropFlag = function (a) {
-  Object.defineProperty(a, '__esModule', {
-    value: true
-  });
-};
-
-exports.exportAll = function (source, dest) {
-  Object.keys(source).forEach(function (key) {
-    if (key === 'default' || key === '__esModule') {
-      return;
-    } // Skip duplicate re-exports when they have the same value.
-
-
-    if (key in dest && dest[key] === source[key]) {
-      return;
-    }
-
-    Object.defineProperty(dest, key, {
-      enumerable: true,
-      get: function () {
-        return source[key];
-      }
-    });
-  });
-  return dest;
-};
-
-exports.export = function (dest, destName, get) {
-  Object.defineProperty(dest, destName, {
-    enumerable: true,
-    get: get
-  });
-};
 },{}],"1mXdc":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
 _parcelHelpers.defineInteropFlag(exports);
@@ -9756,45 +9795,6 @@ const showAlert = (type, msg) => {
   window.setTimeout(hideAlert, 5000);
 };
 
-},{"@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"3eMMV":[function(require,module,exports) {
-var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
-_parcelHelpers.defineInteropFlag(exports);
-_parcelHelpers.export(exports, "displayMap", function () {
-  return displayMap;
-});
-const displayMap = locations => {
-  mapboxgl.accessToken = 'pk.eyJ1Ijoid2hvaXNhYm9uIiwiYSI6ImNrbXAwMzdoczI5cXQyb2w4ODZxM3UzYjkifQ.3IHdIgc38r-Dr7U5qsWTeg';
-  var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/whoisabon/ckmp24lvx3tem17s22da3708e',
-    // center: [-118.3406, 34.8358],
-    zoom: 7,
-    // interactive: false,
-    scrollZoom: false
-  });
-  const bounds = new mapboxgl.LngLatBounds();
-  locations.forEach(loc => {
-    const el = document.createElement('div');
-    el.className = 'marker';
-    new mapboxgl.Marker({
-      element: el,
-      anchor: 'bottom'
-    }).setLngLat(loc.coordinates).addTo(map);
-    new mapboxgl.Popup({
-      offset: 30
-    }).setLngLat(loc.coordinates).setHTML(`<p>Day ${loc.day}: ${loc.description}</p>`).addTo(map);
-    bounds.extend(loc.coordinates);
-  });
-  map.fitBounds(bounds, {
-    padding: {
-      top: 200,
-      bottom: 150,
-      left: 100,
-      right: 100
-    }
-  });
-};
-
 },{"@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"YcauW":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
 _parcelHelpers.defineInteropFlag(exports);
@@ -9807,7 +9807,7 @@ var _alerts = require('./alerts');
 const stripe = Stripe('pk_test_51IcfmMHseh8kuJW4a5jED3Vg6hLk8GaFzB2NMcX31CYwwtrOdsY0In5h1mNn4qClOGtff4xBN358c9e2BlzFSs1400sbqf6RqC');
 const bookTour = async tourId => {
   try {
-    const session = await _axiosDefault.default(`http://localhost:3000/api/v1/bookings/checkout-session/${tourId}`);
+    const session = await _axiosDefault.default(`/api/v1/bookings/checkout-session/${tourId}`);
     await stripe.redirectToCheckout({
       sessionId: session.data.session.id
     });
@@ -9817,6 +9817,6 @@ const bookTour = async tourId => {
   }
 };
 
-},{"axios":"7rA65","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","./alerts":"1mXdc"}]},["6apYc","7tkT4"], "7tkT4", "parcelRequire33f5")
+},{"axios":"7rA65","./alerts":"1mXdc","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}]},["6apYc","7tkT4"], "7tkT4", "parcelRequire33f5")
 
 //# sourceMappingURL=index.js.map
