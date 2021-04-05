@@ -1,0 +1,17 @@
+const express = require('express');
+const bookingController = require('./../controllers/bookingController');
+const authController = require('./../controllers/authController');
+
+const router = express.Router(); 
+
+router.use(authController.protect)
+
+router.get('/checkout-session/:tourID', bookingController.getCheckout);
+
+router.use(authController.restrictTo('admin', 'lead-guide'));
+
+router.route('/').get(bookingController.getAllBookings).post(bookingController.createBooking);
+
+router.route('/:id').get(bookingController.getBooking).patch(bookingController.updateBooking).patch(bookingController.deleteBooking);
+
+module.exports = router;
