@@ -7,6 +7,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 const AppError = require('./utils/AppError');
 const globalErrorHandler = require('./controllers/errorController');
 const tourRouter = require('./routes/tourRoutes');
@@ -57,6 +58,8 @@ app.use(hpp({
 	]
 }));
 
+app.use(compression());
+
 //route handlers
 app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
@@ -72,13 +75,5 @@ app.use(globalErrorHandler);
 
 
 module.exports = app;
-
-// app.get('/api/v1/tours', getAllTours);
-
-// app.post('/api/v1/tours', createTour);
-
-// app.patch('/api/v1/tours/:id', updateTour);
-
-// app.get('/api/v1/tours/:id', getTour);
 
 

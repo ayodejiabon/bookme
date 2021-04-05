@@ -4,7 +4,6 @@ const appError = require('./utils/appError');
 dotenv.config({path: './config.env'});
 
 process.on('uncaughtException', err => {
-	console.log(err);
 	process.exit(1);
 })
 
@@ -28,7 +27,6 @@ const port  = process.env.PORT;
 const server = app.listen(port);
 
 process.on('unhandledRejection', err => {
-	console.log(err);
 	server.close(() => {
 		process.exit(1);
 	})

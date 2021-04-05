@@ -6,7 +6,7 @@ export const login = async (email, password) => {
 	try {
 		const res = await axios({
 			method: 'POST',
-			url: 'http://localhost:3000/api/v1/users/login',
+			url: '/api/v1/users/login',
 			data:{
 				email,
 				password
@@ -27,7 +27,7 @@ export const logout = async () => {
 	try {
 		const res = await axios({
 			method: 'GET',
-			url: 'http://localhost:3000/api/v1/users/logout',
+			url: '/api/v1/users/logout',
 		});
 
 		//reload from server not browser cache
@@ -42,7 +42,7 @@ export const updateUser = async (data) => {
 	try {
 		const res = await axios({
 			method: 'PATCH',
-			url: 'http://localhost:3000/api/v1/users/updateme',
+			url: '/api/v1/users/updateme',
 			data
 		});
 
@@ -63,7 +63,7 @@ export const updatePssword = async (current, password, passwordConfirm) => {
 	try {
 		const res = await axios({
 			method: 'PATCH',
-			url: 'http://localhost:3000/api/v1/users/updatepassword',
+			url: '/api/v1/users/updatepassword',
 			data:{
 				current,
 				password, 

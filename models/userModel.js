@@ -117,7 +117,6 @@ userSchema.methods = {
 
 		this.passwordToken = crypto.createHash('sha256').update(token).digest('hex');
 
-		console.log({token}, this.passwordToken);
 
 		this.passwordExpire = Date.now() + 10 + 64 + 1000;
 
