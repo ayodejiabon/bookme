@@ -22,14 +22,16 @@ mongoose.connect(DB, {
 
 
 const app = require('./app');
-const port  = process.env.PORT; 
+const port  = process.env.PORT;
 
-//const server = app.listen(port);
+console.log("DB connected");
 
-const server = app.listen(port, function(err){
-    if (err) console.log("Error in server setup")
-    console.log("Server listening on Port", port);
-})
+const server = app.listen(port);
+
+// const server = app.listen(port, function(err){
+//     if (err) console.log("Error in server setup")
+//     console.log("Server listening on Port", port);
+// })
 
 process.on('unhandledRejection', err => {
 	server.close(() => {
