@@ -16,15 +16,13 @@ mongoose.connect(DB, {
     useUnifiedTopology: true,
     useFindAndModify:false
 }).then(
-	console.log("DB connected")
+	console.log("DB connected sssssss")
 )
 
 
 
 const app = require('./app');
 const port  = process.env.PORT;
-
-console.log("DB connected");
 
 const server = app.listen(port);
 
