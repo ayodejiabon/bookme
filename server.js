@@ -2,10 +2,15 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const appError = require('./utils/appError');
 dotenv.config({path: './config.env'});
+const fs = require("fs");
 
-process.on('uncaughtException', err => {
-	process.exit(1);
-})
+if (fs.existsSync(`${__dirname}/app.js`)) {
+    console.log("app exists");
+}
+
+// process.on('uncaughtException', err => {
+// 	process.exit(1);
+// })
 
 
 const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DB_PASSWORD);
@@ -16,7 +21,7 @@ mongoose.connect(DB, {
     useUnifiedTopology: true,
     useFindAndModify:false
 }).then(
-	console.log("DB connected sssssss")
+	console.log("DB connected")
 )
 
 
@@ -31,8 +36,8 @@ const server = app.listen(port);
 //     console.log("Server listening on Port", port);
 // })
 
-process.on('unhandledRejection', err => {
-	server.close(() => {
-		process.exit(1);
-	})
-});
+// process.on('unhandledRejection', err => {
+// 	server.close(() => {
+// 		process.exit(1);
+// 	})
+// });
