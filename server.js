@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const app = require('./app');
-const appError = require('./utils/appError');
+//const appError = require('./utils/appError');
 dotenv.config({path: './config.env'});
 
 
@@ -26,14 +26,14 @@ mongoose.connect(DB, {
 	console.log("DB connected")
 )
 
-const port  = process.env.PORT;
+const port = process.env.PORT || 3000;
 
-const server = app.listen(port);
+//const server = app.listen(port);
 
-// const server = app.listen(port, function(err){
-//     if (err) console.log("Error in server setup")
-//     console.log("Server listening on Port", port);
-// })
+const server = app.listen(port, function(err){
+    if (err) console.log("Error in server setup")
+    console.log("Server listening on Port", port);
+})
 
 // process.on('unhandledRejection', err => {
 // 	server.close(() => {

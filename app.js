@@ -8,7 +8,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
-const AppError = require('./utils/AppError');
+//const AppError = require('./utils/AppError');
 const globalErrorHandler = require('./controllers/errorController');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
@@ -67,9 +67,9 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/bookings', bookingRouter);
 
-app.all('*', (req, res, next) => {
-	next(new AppError(`Can't get ${req.originalUrl} on this server`, 404));
-})
+// app.all('*', (req, res, next) => {
+// 	next(new AppError(`Can't get ${req.originalUrl} on this server`, 404));
+// })
 
 app.use(globalErrorHandler);
 
