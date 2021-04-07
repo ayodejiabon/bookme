@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const appError = require('./utils/appError');
+const appError = require('../utils/appError');
 dotenv.config({path: './config.env'});
-const fs = require("fs");
 
-if (fs.existsSync(`${__dirname}/app.js`)) {
-    console.log("app exists");
-}
+
+// const fs = require("fs");
+// if (fs.existsSync(`${__dirname}/app.js`)) {
+//     console.log("app exists");
+// }
 
 // process.on('uncaughtException', err => {
 // 	process.exit(1);
