@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "set NODE_ENV=production&& nodemon server.js",
+    "local:setup": "nodemon server.js",
     "debug": "ndb server.js",
     "watch:js": "parcel serve ./public/js/index.js --dist-dir ./public/js/bundle",
     "build:js": "parcel build ./public/js/index.js --dist-dir ./public/js/bundle"
