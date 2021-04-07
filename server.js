@@ -24,12 +24,14 @@ mongoose.connect(DB, {
 const app = require('./app');
 const port  = process.env.PORT; 
 
-const server = app.listen(process.env.PORT || 3000, function(){
-  console.log("Express server listening on port %d in %s mode");
-});
+//const server = app.listen(port);
+
+const server = app.listen(port, function(err){
+    if (err) console.log("Error in server setup")
+    console.log("Server listening on Port", port);
+})
 
 process.on('unhandledRejection', err => {
-	 console.log("banger");
 	server.close(() => {
 		process.exit(1);
 	})
