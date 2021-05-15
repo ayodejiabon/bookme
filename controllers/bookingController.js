@@ -70,7 +70,7 @@ exports.webhookCheckout = catchAsync ( async (req, res, next) => {
 
 		createBookingCheckout(event.data.object);
 
-		return res.status(400).json({recieved: true});
+		return res.status(200).json({recieved: true});
 	}
 
 });

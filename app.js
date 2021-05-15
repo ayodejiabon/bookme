@@ -76,6 +76,8 @@ app.use(hpp({
 
 app.use(compression());
 
+app.post('/subscriptions', bookingController.subscriptions);
+
 //route handlers
 app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
