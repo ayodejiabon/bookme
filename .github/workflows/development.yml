@@ -21,7 +21,7 @@ jobs:
         port: ${{ secrets.SSH_PORT }}
         username: ${{ secrets.SSH_USERNAME }}
         script: |
-          cd /root/apps/bookme
+          cd ~/apps/bookme
           git pull
           npm install
           pm2 restart server
