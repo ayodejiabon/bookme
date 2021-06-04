@@ -1,0 +1,27 @@
+name: Development Workflow
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy-production:
+    name: Deploy project to production server
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Deployment
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_IP }}
+        key: ${{ secrets.SSH_PRIVATE_KEY_DO }}
+        port: ${{ secrets.SSH_PORT }}
+        username: ${{ secrets.SSH_USERNAME }}
+        script: |
+          cd /root/apps/bookme
+          git pull
+          npm install
+          pm2 restart server
